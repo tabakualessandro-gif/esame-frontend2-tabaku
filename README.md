@@ -1,75 +1,99 @@
-# React + TypeScript + Vite
+# Movie App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Applicazione web sviluppata con React e TypeScript per consultare un elenco di film e visualizzarne le informazioni dettagliate utilizzando le API di The Movie Database (TMDB).
 
-Currently, two official plugins are available:
+Il progetto è stato realizzato nell'ambito della prova pratica del modulo Frontend React di base.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Tecnologie utilizzate
 
-## React Compiler
+- React
+- TypeScript
+- Vite
+- React Router DOM
+- CSS
+- The Movie Database (TMDB) API
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Funzionalità
 
-## Expanding the ESLint configuration
+L'applicazione è composta da due pagine.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Pagina elenco
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- Recupero dei film tramite API TMDB.
+- Ricerca preimpostata: "The Lord of the Rings".
+- Visualizzazione dei risultati della prima pagina, fino a un massimo di 20 film.
+- Visualizzazione di poster, titolo, data di uscita, valutazione e trama.
+- Accesso alla pagina di dettaglio tramite il pulsante "Dettaglio" del primo risultato.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Pagina dettaglio
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- Recupero dei dati del film attraverso il suo ID.
+- Visualizzazione delle informazioni principali: titolo, poster, tagline, data di uscita, durata, valutazione, generi, trama e informazioni sulla produzione.
+- Gestione degli stati di caricamento e degli eventuali errori.
 
+## Struttura del progetto
+
+```text
+src/
+├── components/
+│   ├── Header.tsx
+│   ├── MovieCard.tsx
+│   ├── Poster.tsx
+│   └── Shell.tsx
+├── pages/
+│   ├── MovieListPage.tsx
+│   └── MovieDetailPage.tsx
+├── types/
+│   ├── movie.ts
+│   └── movieDetail.ts
+├── index.css
+└── main.tsx
+
+traccia/
+└── prototipo/
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+## Installazione e avvio
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Per eseguire il progetto in locale:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+1. Clonare il repository.
+2. Aprire la cartella del progetto nel terminale.
+3. Installare le dipendenze:
 
+```bash
+npm install
 ```
+
+4. Creare un file `.env.local` nella cartella principale e inserire la propria chiave API TMDB:
+
+```env
+VITE_TMDB_API_KEY=INSERISCI_LA_TUA_API_KEY
+```
+
+5. Avviare il server di sviluppo:
+
+```bash
+npm run dev
+```
+
+Vite mostrerà nel terminale l'indirizzo locale al quale sarà possibile visualizzare l'applicazione.
+
+## Routing
+
+La navigazione è gestita tramite React Router DOM.
+
+Le route previste sono:
+
+- `/` – Pagina elenco dei film.
+- `/movies/:id` – Pagina dettaglio del film identificato dal relativo ID.
+
+Entrambe le pagine condividono il componente `Shell`, che contiene l'header e la struttura comune dell'applicazione.
+
+## API
+
+I dati dei film provengono da [The Movie Database](https://www.themoviedb.org/).
+
+La chiave API viene letta tramite una variabile d'ambiente e deve essere configurata localmente nel file `.env.local`.
+
+Il file `.env.local` non deve essere caricato nel repository.
