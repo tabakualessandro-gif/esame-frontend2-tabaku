@@ -2,6 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './index.css'
+import MovieListPage from './pages/MovieListPage.tsx'
 import Shell from './components/Shell.tsx'
 
 const router = createBrowserRouter([
@@ -11,7 +12,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: null,
+        element: <MovieListPage />,
       },
       {
         path: 'movies/:id',
