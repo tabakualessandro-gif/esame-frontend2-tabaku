@@ -71,7 +71,13 @@ function MovieListPage() {
       <div className="movie-grid">
         {!isLoading &&
           !visibleError &&
-          movies.map((movie) => <MovieCard key={movie.id} movie={movie} />)}
+          movies.map((movie, index) => (
+            <MovieCard
+              key={movie.id}
+              movie={movie}
+              detailEnabled={index === 0}
+            />
+          ))}
       </div>
     </>
   );

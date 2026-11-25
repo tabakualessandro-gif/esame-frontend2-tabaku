@@ -2,6 +2,10 @@ import { Link } from "react-router-dom";
 import Poster from "./Poster";
 import type { MovieCardProps } from "../types/movie";
 
+type MovieCardComponentProps = MovieCardProps & {
+  detailEnabled: boolean;
+};
+
 function formatReleaseDate(releaseDate: string): string {
   if (!releaseDate) {
     return "N/D";
@@ -14,7 +18,7 @@ function formatReleaseDate(releaseDate: string): string {
     : new Intl.DateTimeFormat("it-IT").format(date);
 }
 
-function MovieCard({ movie }: MovieCardProps) {
+function MovieCard({ movie, detailEnabled }: MovieCardComponentProps) {
   return (
     <article className="card">
       <Poster posterPath={movie.poster_path} alt={movie.title} />
@@ -25,9 +29,15 @@ function MovieCard({ movie }: MovieCardProps) {
           {movie.vote_average.toFixed(1)}
         </p>
         <p className="card__overview">{movie.overview}</p>
-        <Link className="card__cta" to={`/movies/${movie.id}`}>
-          Dettaglio
-        </Link>
+        {detailEnabled ? (
+          <Link className="card__cta" to={`/movies/${movie.id}`}>
+            Dettaglio
+          </Link>
+        ) : (
+          <span className="card__cta card__cta--disabled" aria-disabled="true">
+            Dettaglio
+          </span>
+        )}
       </div>
     </article>
   );
